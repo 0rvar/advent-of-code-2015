@@ -1,8 +1,9 @@
 [package]
-name = "day01"
+name = "day04"
 version = "0.1.0"
 authors = ["Orvar Segerström <orvarsegerstrom@gmail.com>"]
 edition = "2018"
 
 [dependencies]
 shared = { path = "../shared" }
+rust-crypto = "*"
