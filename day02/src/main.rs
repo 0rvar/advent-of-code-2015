@@ -1,15 +1,4 @@
-use shared::*;
-
 fn main() {
-    // let line_regex = Regex::new(
-    //     r"\[1518-(\d+)-(\d+) (\d+):(\d+)\] (Guard #\d+ begins shift|falls asleep|wakes up)",
-    // )
-    // .unwrap();
-    // let guard_regex = Regex::new(r"Guard #(\d+) begins shift").unwrap();
-
-    // for line in lines {
-    //     let captures = line_regex.captures(line).unwrap();
-    //     let month = get_number_match(&captures, 1);
     let input: Vec<(usize, usize, usize)> = include_str!("input.txt")
         .trim()
         .split("\n")
@@ -33,4 +22,20 @@ fn main() {
         })
         .sum::<usize>();
     println!("Part 1: {}", wrapping_paper_needed);
+
+    let ribbon_needed: usize = input.iter().map(ribbon).sum::<usize>();
+    println!("Part 2: {}", ribbon_needed);
+}
+
+fn ribbon(&(l, w, h): &(usize, usize, usize)) -> usize {
+    let mut sides: Vec<usize> = vec![l, w, h];
+    sides.sort();
+    let wrap = (sides[0] + sides[1]) * 2;
+    let bow = sides.iter().product::<usize>();
+    wrap + bow
+}
+
+#[test]
+fn test_ribbon() {
+    assert_eq!(ribbon(&(2, 3, 4)), 34);
 }
