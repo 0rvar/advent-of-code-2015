@@ -1,4 +1,5 @@
 use shared::*;
+use std::collections::HashMap;
 use std::collections::HashSet;
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
@@ -46,7 +47,7 @@ fn main() {
 
     {
         let mut lights = HashSet::new();
-        for (todo, p1, p2) in input {
+        for (todo, p1, p2) in &input {
             for x in p1.x..=p2.x {
                 for y in p1.y..=p2.y {
                     let c: (isize, isize) = (x, y);
@@ -69,5 +70,31 @@ fn main() {
             }
         }
         println!("Part 1: {} lights", lights.len());
+    }
+
+    {
+        let mut lights: HashMap<(isize, isize), isize> = HashMap::new();
+        for (todo, p1, p2) in &input {
+            for x in p1.x..=p2.x {
+                for y in p1.y..=p2.y {
+                    let entry = lights.entry((x, y)).or_default();
+                    match todo {
+                        Todo::Toggle => {
+                            *entry += 2;
+                        }
+                        Todo::TurnOn => {
+                            *entry += 1;
+                        }
+                        Todo::TurnOff => {
+                            *entry -= 1;
+                            if *entry < 1 {
+                                *entry = 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        println!("Part 2: {} brightness", lights.values().sum::<isize>());
     }
 }
