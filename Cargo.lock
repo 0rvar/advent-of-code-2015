@@ -62,6 +62,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "day06"
+version = "0.1.0"
+dependencies = [
+ "regex 1.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "shared 0.1.0",
+]
+
+[[package]]
 name = "fuchsia-zircon"
 version = "0.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
